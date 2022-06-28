@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React from "react";
+import { StyleSheet, Text, View ,SafeAreaView,Image,Animated} from 'react-native';
+import { PinchGestureHandler } from "react-native-gesture-handler";
 export default function App() {
+  const scale = React.useRef(new Animated.Value(1)).current;
+  const handlePinch=Animated.event([{nativeEvent:{scale}}]);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start work on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <PinchGestureHandler onGestureEvent={handlePinch}>
+      <Animated.Image source = {require('./parkingLot.jpg')} style={[styles.img,{transform:[{scale}]}]}/>
+    </PinchGestureHandler>
+  ); 
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent:"center",
+    alignItems:"center"
   },
-});
+  img: {
+    flex: 1,
+    height: null,
+    resizeMode: 'stretch',
+    width:null,
+    justifyContent:"center",    
+    //transform: [{ rotate: '90deg' }],
+    // aspectRatio: 1
+  }
+
+}); 
